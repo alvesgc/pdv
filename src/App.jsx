@@ -6,11 +6,11 @@ export default function App() {
   return (
     <Router>
       <nav>
-        <Link to="/">Vendas</Link> | <Link to="/produtos">Produtos</Link>
+        <Link to="/">Vendas</Link> | <Link to="/products">Produtos</Link>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/produtos" element={<Products />} />
+        <Route path="/products" element={<Products />} />
       </Routes>
     </Router>
   );
