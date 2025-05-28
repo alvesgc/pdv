@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { useProducts } from "../context/ProductContext";
+import { useProducts } from '../context/ProductContext';
 import { Link } from "react-router-dom";
-import { list } from "postcss";
 
 export default function Products() {
   const { products, addProduct, removeProduct } = useProducts();
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState("");
+  const [productName, setProductName] = useState('');
+  const [productPrice, setProductPrice] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,6 +48,22 @@ export default function Products() {
               required
             />
           </div>
+          <div className="mb-4">
+            <label
+              htmlFor="productPrice"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Preço:
+            </label>
+            <input
+            type="number"
+            id="productPrice"
+            value={productPrice}
+            onChange={(e) => setProductPrice(e.target.value)}
+            step="0.01"
+            min="0.01"
+            className="shadow appearence-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
+          </div>
           <button
             type="submit"
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
@@ -56,24 +71,18 @@ export default function Products() {
             Adicionar Produto
           </button>
         </form>
-        {/* Lista de Produtos Cadastrados*/}
-        <h2 className="text 2xl font-bold text-gray-900 mb-4">
-          Produtos Cadastrados
-        </h2>
+       {/* Lista de Produtos Cadastrados */}
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Produtos Cadastrados:</h2>
         {products.length === 0 ? (
-          <p className="text-center texte-gray-500">
-            Nenhum produto Cadastrado
-          </p>
+          <p className="text-center text-gray-500">Nenhum produto cadastrado ainda.</p>
         ) : (
           <ul className="divide-y divide-gray-200">
             {products.map((p) => (
-              <li key={p.id} className="py-3 flex justify-between itens-center">
-                <span className="text-lg text-gray-700">
-                  {p.name} - R$ {p.price.toFixed(2)}
-                </span>
+              <li key={p.id} className="py-3 flex justify-between items-center">
+                <span className="text-lg text-gray-700">{p.name} - R$ {p.price.toFixed(2)}</span>
                 <button
                   onClick={() => removeProduct(p.id)}
-                  className="bg-red-500 hover:bg-red-700 text-white text-sm py-1 px-3 rounded focus:outline-none focus: shadow-outline"
+                  className="bg-red-500 hover:bg-red-700 text-white text-sm py-1 px-3 rounded focus:outline-none focus:shadow-outline"
                 >
                   Remover
                 </button>
@@ -81,9 +90,12 @@ export default function Products() {
             ))}
           </ul>
         )}
-        {/* Link para a Home*/}
+
+        {/* Link para a Home, se estiver usando roteamento */}
         <div className="mt-8 text-center">
-          <Link to="/" className="text-blue-500 hover:underline">Voltar para a Tela de Vendas</Link>
+          <Link to="/" className="text-blue-500 hover:underline">
+            Voltar para a Tela de Vendas
+          </Link>
         </div>
       </div>
     </div>
