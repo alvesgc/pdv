@@ -1,26 +1,27 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
-
+import React, { createContext, useContext, useState, useEffect } from 'react';
 const ProductContext = createContext();
 
-export const useProducts  = () => {
+export const useProducts = () => {
   return useContext(ProductContext);
 };
 
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState(() => {
     try {
-      const storedProducts = localStorage.getItem("products");
+      const storedProducts = localStorage.getItem('products');
+
       return storedProducts ? JSON.parse(storedProducts) : [];
     } catch (error) {
-      console.error("Failed to load products from localStorage", error);
+      console.error("Erro ao carregar produtos do localStorage:", error);
       return [];
     }
   });
   useEffect(() => {
+
     try {
       localStorage.setItem('products', JSON.stringify(products));
-    }catch (error) {
-      console.error("Failed to parse products from localStorage", error);
+    } catch (error) {
+      console.error("Erro ao salvar produtos no localStorage:", error); 
     }
   }, [products]);
 
@@ -29,13 +30,12 @@ export const ProductProvider = ({ children }) => {
       ...newProduct,
       id: newProduct.id || Date.now(),
     };
-    setProducts((prevProducts) => {
-      [...prevProducts, productWithId];
-    })
+    setProducts((prevProducts) => [...prevProducts, productWithId]);
   };
+
   const removeProduct = (id) => {
     setProducts((prevProducts) => prevProducts.filter(p => p.id !== id));
-  }
+  };
 
   const value = {
     products,
