@@ -1,5 +1,6 @@
 import { useCart } from '../context/CartContext';
-
+import { useProducts } from '../context/ProductContext';
+import { Link } from "react-router-dom";
 // const mockProducts = [
 //   { id: 1, name: "Coca-Cola", price: 5.0 },
 //   { id: 2, name: "Pastel", price: 7.5 },
@@ -13,32 +14,28 @@ import { useCart } from '../context/CartContext';
 
 export default function Home() {
   const { cart, addToCart, removeFromCart, clearCart } = useCart();
-
+   const { products } = useProducts(); 
   const total = cart.reduce((sum, p) => sum + p.price, 0);
 
   return (
-    <div className="min-h-screen bg-gray-400 p-4 font-sans text-gray-800">
+    <div className="min-h-screen bg-gray-100 p-4 font-sans text-gray-800">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Seção de Produtos */}
         <div className="md:col-span-2 bg-white p-6 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold text-center text-gray-900 mb-6">Catálogo de Produtos</h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {mockProducts.map((p) => (
-              <div
-                key={p.id}
-                className="bg-gray-50 p-4 rounded-lg shadow flex flex-col items-center justify-between transition duration-200 ease-in-out hover:bg-gray-100"
-              >
-                <h3 className="text-lg font-semibold text-gray-800">{p.name}</h3>
-                <p className="text-xl font-bold text-green-600 my-2">R$ {p.price.toFixed(2)}</p>
-                <button
-                  onClick={() => addToCart(p)}
-                  className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out"
-                >
-                  Adicionar
-                </button>
-              </div>
-            ))}
-          </div>
+          {products.length === 0 ? (
+            <p className="text-center text-gray-500 text-lg">Nenhum Produto Cadastrado ainda. Vá para a página de <Link to="/products" className="text-blue-500 hover:underline">Cadastro de Produtos</Link> para adicionar alguns</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {products.map((p) => (
+                <div key={p.id} className="bg-gray-50 p-4 rounded-lg shadow flex flex-col items-center justify-between transition duration-200 ease-in-out hover:bg-gray-100">
+                  <h3 className="text-lg font-semibold text-gray-800">{p.name}</h3>
+                  <p clasName="text-xl font-bold text-green-600 my-2">R$ {p.price.toFixed(2)}</p>
+                  <button onClick={() => addToCart(p)} className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out" >Adicionar</button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Seção do Carrinho e Finalização */}
