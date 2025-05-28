@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import SideBar from "./Sidebar";
+import SideBar from "./SideBar";
 import Header from "./Header";
 
 const Layout = ({ children }) => {
@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
      <div className="flex">
         <SideBar visible={isSidebarVisible} />
         <div className="flex-1">
-            <Header onClick={toogleSideBar}>
+            <Header clickMenu={toogleSideBar}>
                 <main className="p-6">{children}</main>
             </Header>
         </div>
