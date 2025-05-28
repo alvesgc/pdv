@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from "react";
 
 const ProductContext = createContext();
 
-export const usePoducts = () => {
+export const useProducts  = () => {
   return useContext(ProductContext);
 };
 
