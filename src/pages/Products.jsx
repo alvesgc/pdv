@@ -15,7 +15,7 @@ export default function Products() {
     }
     const newProduct = {
       name: productName,
-      price: parseFloat(productPrice),
+      price: parseFloat(productPrice.replace('.', ',')),
     };
     addProduct(newProduct);
     setProductName("");
