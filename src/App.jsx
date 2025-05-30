@@ -1,17 +1,17 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Home from './pages/Home';
-import Products from './pages/Products';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/Home";
+import Products from "./pages/Products";
+import Layout from "./components/Layout";
 
 export default function App() {
   return (
     <Router>
-      <nav>
-        <Link to="/">Vendas</Link> | <Link to="/products">Produtos</Link>
-      </nav>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Products />} />
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+        </Routes>
+      </Layout>
     </Router>
   );
 }
