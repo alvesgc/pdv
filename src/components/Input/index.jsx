@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ type = "text", placeholder = "", value }) => {
+const Input = ({ type = "text", placeholder = "", value, onChange }) => {
   return (
     <div className={`flex items-center border border-gray-300 rounded-md p-2`}>
       <input
@@ -8,6 +8,7 @@ const Input = ({ type = "text", placeholder = "", value }) => {
         type={type}
         placeholder={placeholder}
         value={value}
+        onChange={onChange}
       />
     </div>
   );
