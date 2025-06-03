@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FiX } from "react-icons/fi";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { MdAttachMoney } from "react-icons/md";
+import { GrCatalog } from "react-icons/gr";
 
 const SideBar = ({ visible, onClose }) => {
   return (
@@ -31,6 +32,14 @@ const SideBar = ({ visible, onClose }) => {
             <div className="flex items-center gap-2"> 
               <MdOutlineProductionQuantityLimits /> 
               Produtos
+            </div >
+          </Link>
+        </li>
+        <li>
+          <Link to="/Log" onClick={onClose} className="block hover:bg-gray-700 p-2 rounded">
+            <div className="flex items-center gap-2"> 
+              <GrCatalog />
+              Histórico
             </div >
           </Link>
         </li>
