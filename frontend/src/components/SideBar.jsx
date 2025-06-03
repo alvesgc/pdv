@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FiX } from "react-icons/fi";
-import { MdOutlineProductionQuantityLimits } from "react-icons/md";
-import { MdAttachMoney } from "react-icons/md";
-import { GrCatalog } from "react-icons/gr";
+// import { FiX } from "react-icons/fi";
+// import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+// import { MdAttachMoney } from "react-icons/md";
+// import { GrCatalog } from "react-icons/gr";
 
 const SideBar = ({ visible, onClose }) => {
   return (
@@ -15,14 +15,14 @@ const SideBar = ({ visible, onClose }) => {
       <div className="flex items-center justify-between p-3 mt-11 border-b border-gray-600">
         <h2 className="text-lg font-bold">Módulos</h2>
         <button onClick={onClose} className="text-white text-xl">
-          <FiX />
+         {/* <FiX /> */}
         </button>
       </div>
       <ul className="space-y-2">
        <li>
           <Link to="/" onClick={onClose} className="block hover:bg-gray-700 p-2 rounded">
             <div className="flex items-center gap-2"> 
-              <MdAttachMoney /> 
+              {/* <MdAttachMoney />  */}
               Vendas
             </div >
           </Link>
@@ -30,7 +30,7 @@ const SideBar = ({ visible, onClose }) => {
         <li>
           <Link to="/products" onClick={onClose} className="block hover:bg-gray-700 p-2 rounded">
             <div className="flex items-center gap-2"> 
-              <MdOutlineProductionQuantityLimits /> 
+              {/* <MdOutlineProductionQuantityLimits />  */}
               Produtos
             </div >
           </Link>
@@ -38,7 +38,7 @@ const SideBar = ({ visible, onClose }) => {
         <li>
           <Link to="/Log" onClick={onClose} className="block hover:bg-gray-700 p-2 rounded">
             <div className="flex items-center gap-2"> 
-              <GrCatalog />
+              {/* <GrCatalog /> */}
               Histórico
             </div >
           </Link>
