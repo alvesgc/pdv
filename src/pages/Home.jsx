@@ -7,6 +7,7 @@ import SelectedProduct from "../components/SelectedProduct/";
 import CartItem from "../components/CartItem";
 import CartSummary from "../components/CartSummary";
 import ActionButton from "../components/ActionButton";
+import Input from "../components/Input";
 
 export default function Home() {
   const { cart, addToCart, removeFromCart, clearCart } = useCart();
@@ -19,6 +20,7 @@ export default function Home() {
   const itemCount = cart.reduce((sum, p) => sum + p.quantity, 0);
   const total = cart.reduce((sum, p) => sum + p.price * p.quantity, 0);
   const itemPrice = (selectedProduct?.price ?? 0) * quantity;
+  const discount = 0;
   
   const handleSearchChange = (e) => {
     const query = e.target.value;
@@ -46,7 +48,7 @@ export default function Home() {
             Venda
           </h1>
 
-          <input
+          <Input
             type="text"
             placeholder="Pesquisar produto por código ou nome"
             value={searchTerm}
@@ -89,7 +91,7 @@ export default function Home() {
             </div>
           </div>
 
-          <CartSummary itemCount={itemCount} total={total} itemPrice={itemPrice} />
+          <CartSummary itemCount={itemCount} total={total} itemPrice={itemPrice} discount={discount}/>
         </div>
 
         <div className="md:col-span-1 bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between h-full">
