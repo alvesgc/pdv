@@ -18,7 +18,8 @@ export default function Home() {
 
   const itemCount = cart.reduce((sum, p) => sum + p.quantity, 0);
   const total = cart.reduce((sum, p) => sum + p.price * p.quantity, 0);
-
+  const itemPrice = (selectedProduct?.price ?? 0) * quantity;
+  
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchTerm(query);
@@ -78,13 +79,17 @@ export default function Home() {
                 <p className="text-gray-500">Nenhum item adicionado ainda.</p>
               ) : (
                 cart.map((item) => (
-                  <CartItem key={item.id} item={item} onRemove={removeFromCart} />
+                  <CartItem
+                    key={item.id}
+                    item={item}
+                    onRemove={removeFromCart}
+                  />
                 ))
               )}
             </div>
           </div>
 
-          <CartSummary itemCount={itemCount} total={total} />
+          <CartSummary itemCount={itemCount} total={total} itemPrice={itemPrice} />
         </div>
 
         <div className="md:col-span-1 bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between h-full">
