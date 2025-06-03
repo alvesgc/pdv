@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ type = "text", placeholder = "", value, onChange }) => {
+const Input = ({ type, placeholder = "", value, onChange,required}) => {
   return (
     <div className={`flex items-center border border-gray-300 rounded-md p-2`}>
       <input
@@ -9,6 +9,7 @@ const Input = ({ type = "text", placeholder = "", value, onChange }) => {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        required={required}
       />
     </div>
   );

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { useProducts } from '../context/ProductContext';
+import { useProducts } from "../context/ProductContext";
 import { Link } from "react-router-dom";
 import Input from "../components/Input";
 
 export default function Products() {
   const { products, addProduct, removeProduct } = useProducts();
-  const [productName, setProductName] = useState('');
-  const [productPrice, setProductPrice] = useState('');
+  const [productName, setProductName] = useState("");
+  const [productPrice, setProductPrice] = useState("");
+  const [productCode, setProductCode] = useState("");
+  const [mode, setMode] = useState("list");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,11 +18,13 @@ export default function Products() {
     }
     const newProduct = {
       name: productName,
-      price: parseFloat(productPrice.replace('.', ',')),
+      productCode: productCode,
+      price: parseFloat(productPrice.replace(".", ",")),
     };
     addProduct(newProduct);
     setProductName("");
     setProductPrice("");
+    setProductCode("");
   };
   return (
     <div className="min-h-screen bg-gray-100 p-4 font-sans text-gray-800">
@@ -34,12 +38,34 @@ export default function Products() {
           className="mb-8 p-4 border border-gray-200 rounded-md"
         >
           <div className="mb-4">
+            <label
+              htmlFor="productCode"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Código do Produto:
+            </label>
+            <Input
+              type="text"
+              id="productCode"
+              value={productCode}
+              onChange={(e) => setProductCode(e.target.value)}
+              placeholder="Digite o código do produto"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="productName"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Nome do produto:
+            </label>
             <Input
               type="text"
               id="productName"
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
-              className="shadow appearence-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Digite o nome do produto"
               required
             />
           </div>
@@ -50,14 +76,16 @@ export default function Products() {
             >
               Preço:
             </label>
-            <input
-            type="number"
-            id="productPrice"
-            value={productPrice}
-            onChange={(e) => setProductPrice(e.target.value)}
-            step="0.01"
-            min="0.01"
-            className="shadow appearence-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
+            <Input
+              type="number"
+              id="productPrice"
+              value={productPrice}
+              onChange={(e) => setProductPrice(e.target.value)}
+              step="0.01"
+              min="0.01"
+              placeholder="Digite o preço do produto"
+              required
+            />
           </div>
           <button
             type="submit"
@@ -66,15 +94,21 @@ export default function Products() {
             Adicionar Produto
           </button>
         </form>
-       {/* Lista de Produtos Cadastrados */}
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Produtos Cadastrados:</h2>
+        {/* Lista de Produtos Cadastrados */}
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          Produtos Cadastrados:
+        </h2>
         {products.length === 0 ? (
-          <p className="text-center text-gray-500">Nenhum produto cadastrado ainda.</p>
+          <p className="text-center text-gray-500">
+            Nenhum produto cadastrado ainda.
+          </p>
         ) : (
           <ul className="divide-y divide-gray-200">
             {products.map((p) => (
               <li key={p.id} className="py-3 flex justify-between items-center">
-                <span className="text-lg text-gray-700">{p.name} - R$ {p.price.toFixed(2)}</span>
+                <span className="text-lg text-gray-700">
+                  {p.productCode} - {p.name} R$ {p.price.toFixed(2)}
+                </span>
                 <button
                   onClick={() => removeProduct(p.id)}
                   className="bg-red-500 hover:bg-red-700 text-white text-sm py-1 px-3 rounded focus:outline-none focus:shadow-outline"
