@@ -43,6 +43,16 @@ export default function ProductForm() {
           placeholder="Digite o código do produto"
           required
         />
+         <label className="block text-gray-700 text-sm font-bold mb-2">
+          Código de barras do Produto:
+        </label>
+        <Input
+          type="text"
+          value={productCode}
+          onChange={(e) => setProductCode(e.target.value)}
+          placeholder="Digite o código do produto"
+          required
+        />
       </div>
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2">

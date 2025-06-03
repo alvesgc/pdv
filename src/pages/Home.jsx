@@ -9,6 +9,7 @@ import CartSummary from "../components/CartSummary";
 import ActionButton from "../components/ActionButton";
 import Input from "../components/Input";
 
+
 export default function Home() {
   const { cart, addToCart, removeFromCart, clearCart } = useCart();
 

@@ -1,5 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+// import { FiX } from "react-icons/fi";
+// import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+// import { MdAttachMoney } from "react-icons/md";
+// import { GrCatalog } from "react-icons/gr";
 
 const SideBar = ({ visible, onClose }) => {
   return (
@@ -11,18 +15,32 @@ const SideBar = ({ visible, onClose }) => {
       <div className="flex items-center justify-between p-4 border-b border-gray-600">
         <h2 className="text-lg font-bold">Módulos</h2>
         <button onClick={onClose} className="text-white text-xl">
-          X
+         {/* <FiX /> */}
         </button>
       </div>
       <ul className="space-y-2">
-        <li>
+       <li>
           <Link to="/" onClick={onClose} className="block hover:bg-gray-700 p-2 rounded">
-            Vendas
+            <div className="flex items-center gap-2"> 
+              {/* <MdAttachMoney />  */}
+              Vendas
+            </div >
           </Link>
         </li>
         <li>
           <Link to="/products" onClick={onClose} className="block hover:bg-gray-700 p-2 rounded">
-            Produtos
+            <div className="flex items-center gap-2"> 
+              {/* <MdOutlineProductionQuantityLimits />  */}
+              Produtos
+            </div >
+          </Link>
+        </li>
+        <li>
+          <Link to="/Log" onClick={onClose} className="block hover:bg-gray-700 p-2 rounded">
+            <div className="flex items-center gap-2"> 
+              {/* <GrCatalog /> */}
+              Histórico
+            </div >
           </Link>
         </li>
       </ul>
