@@ -1,6 +1,6 @@
 import FormatterPrice from "../../utils/formatters";
 
-export default function CartSummary({ itemCount, total, itemPrice }) {
+export default function CartSummary({ itemCount, total, itemPrice, discount}) {
   return (
     <div className="flex justify-between items-center gap-5 pt-4 border-t-2 border-gray-200">
       <div className="flex flex-col items-center">
@@ -10,7 +10,7 @@ export default function CartSummary({ itemCount, total, itemPrice }) {
       {/* Desconto */}
       <div className="flex flex-col items-center">
         <p className="text-lg font-bold text-gray-900">Desconto</p>
-        <span className="text-blue-600 text-xl">{itemCount}</span>
+        <span className="text-blue-600 text-xl"> <FormatterPrice value={discount} /></span>
       </div>
       {/* Valor UN */}
       <div className="flex flex-col items-center">
@@ -19,7 +19,6 @@ export default function CartSummary({ itemCount, total, itemPrice }) {
           <FormatterPrice value={itemPrice} />
         </span>
       </div>
-
       {/* Total  */}
       <div className="flex flex-col items-center">
         <p className="text-lg font-bold text-gray-900">Total</p>
