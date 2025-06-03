@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useProducts } from '../context/ProductContext';
 import { Link } from "react-router-dom";
+import Input from "../components/Input";
 
 export default function Products() {
   const { products, addProduct, removeProduct } = useProducts();
@@ -15,7 +16,7 @@ export default function Products() {
     }
     const newProduct = {
       name: productName,
-      price: parseFloat(productPrice),
+      price: parseFloat(productPrice.replace('.', ',')),
     };
     addProduct(newProduct);
     setProductName("");
@@ -33,13 +34,7 @@ export default function Products() {
           className="mb-8 p-4 border border-gray-200 rounded-md"
         >
           <div className="mb-4">
-            <label
-              htmlFor="productName"
-              className="block text-gray-700 tex-sm font-bold mb-2"
-            >
-              Nome do Produto:
-            </label>
-            <input
+            <Input
               type="text"
               id="productName"
               value={productName}
