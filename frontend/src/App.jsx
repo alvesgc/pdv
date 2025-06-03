@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Log from "./pages/Log";
 import Layout from "./components/Layout";
+import "./index.css";
 
 export default function App() {
   return (
