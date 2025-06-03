@@ -1,4 +1,4 @@
-export default function formatterPrice ({value}) {
+export default function FormatterPrice ({value}) {
   const formatted = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL'
