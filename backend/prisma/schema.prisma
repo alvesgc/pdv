@@ -8,9 +8,10 @@ datasource db {
 }
 
 model Product {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
   price     Float
   quantity  Int
+  active    Boolean
   createdAt DateTime @default(now())
 }
