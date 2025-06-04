@@ -9,9 +9,11 @@ datasource db {
 
 model Product {
   id        Int      @id @default(autoincrement())
+  code    Int
+  bar_code String
   name      String
   price     Float
-  quantity  Int
-  active    Boolean
+  quantity  Int @default(0)
+  active    Boolean @default(true)
   createdAt DateTime @default(now())
 }

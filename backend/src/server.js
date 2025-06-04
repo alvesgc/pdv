@@ -16,12 +16,14 @@ app.get('/products', async (req, res) => {
 })
 
 app.post('/products', async (req, res) => {
-  const {name, price, quantity, active } = req.body;
+  const {code, name, barcode, quantity, price, active  } = req.body;
   const newProduct = await prisma.products.create({
     data: {
+      code,
       name,
-      price,
+      barcode,
       quantity,
+      price,
       active
     }
   });
