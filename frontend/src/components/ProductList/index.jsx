@@ -64,7 +64,7 @@ export default function ProductList() {
                 <td className="px-4 py-2 text-sm text-gray-800">
                   <FormatterPrice value={p.price} />
                 </td>
-                <td className="px-4 py-2 text-sm text-gray-800">{p.active ? "Sim" : "Não"}</td>
+                <td className="px-4 py-2 text-end text-sm text-gray-800">{p.active ? "Sim" : "Não"}</td>
               </tr>
             ))
           )}
