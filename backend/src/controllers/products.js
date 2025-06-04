@@ -13,12 +13,17 @@ export const getProducts = async (req,res) => {
 
 export const createProduct = async (req,res) => {
   const {code, name, barcode, quantity, price, active} = req.body;
+
+   if (!code || !name || price == null || quantity == null || quantity < 0 || price < 0) {
+  return res.status(400).json({ error: "Missing or invalid fields" });
+}
+  
   try {
     const newProduct = await prisma.product.create({
       data: {
         code,
         name,
-        barcode,
+        bar_code: barcode || code,
         quantity,
         price,
         active
