@@ -11,13 +11,13 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/products', async (req, res) => {
-  const products = await prisma.products.findMany()
+  const products = await prisma.product.findMany()
   res.json(products);
 })
 
 app.post('/products', async (req, res) => {
   const {code, name, barcode, quantity, price, active  } = req.body;
-  const newProduct = await prisma.products.create({
+  const newProduct = await prisma.product.create({
     data: {
       code,
       name,
