@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import Input from "../Input";
 import { useProducts } from "../../context/ProductContext";
+import api from "../../lib/api";
 
 export default function ProductForm() {
-  const { addProduct } = useProducts();
+
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productCode, setProductCode] = useState("");
+  const [barcode, setBarcode] = useState("");
+  const [productQuantity, setProductQuantity] = useState(1);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (productName.trim() === "" || parseFloat(productPrice) <= 0) {
       alert("Por favor, preencha todos os campos corretamente.");
@@ -16,18 +19,25 @@ export default function ProductForm() {
     }
 
     const newProduct = {
-      code: productCode,
       name: productName,
+      productCode: productCode,
       barcode: barcode || productCode,
-      quantity: 1,
+      quantity: parseInt(productQuantity),
       price: parseFloat(productPrice.replace(",", ".")),
-      active: true, 
+      active: true,
     };
-
-    addProduct(newProduct);
-    setProductName("");
-    setProductPrice("");
-    setProductCode("");
+    try {
+      await api.post("http://localhost:3000/products", newProduct);
+      alert("Produto adicionado com sucesso!");
+      setProductName("");
+      setProductPrice("");
+      setProductCode("");
+      setBarcode("");
+      setProductQuantity(1);
+    }catch (error) {
+      console.error("Erro ao adicionar produto:", error);
+      alert("Erro ao adicionar produto. Tente novamente.");
+    }
   };
 
   return (
@@ -46,15 +56,14 @@ export default function ProductForm() {
           placeholder="Digite o código do produto"
           required
         />
-         <label className="block text-gray-700 text-sm font-bold mb-2">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
           Código de barras do Produto:
         </label>
         <Input
           type="text"
-          value={productCode}
+          value={barcode}
           onChange={(e) => setProductCode(e.target.value)}
-          placeholder="Digite o código do produto"
-          required
+          placeholder="Digite o código de barras do produto"
         />
       </div>
       <div className="mb-4">
@@ -66,6 +75,20 @@ export default function ProductForm() {
           value={productName}
           onChange={(e) => setProductName(e.target.value)}
           placeholder="Digite o nome do produto"
+          required
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Quantidade:
+        </label>
+        <Input
+          type="number"
+          value={quantity}
+          onChange={(e) => setProductPrice(e.target.value)}
+          step="0.01"
+          min="0.01"
+          placeholder="Digite a quantidade do produto"
           required
         />
       </div>
