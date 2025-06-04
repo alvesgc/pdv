@@ -16,9 +16,12 @@ export default function ProductForm() {
     }
 
     const newProduct = {
+      code: productCode,
       name: productName,
-      productCode: productCode,
+      barcode: barcode || productCode,
+      quantity: 1,
       price: parseFloat(productPrice.replace(",", ".")),
+      active: true, 
     };
 
     addProduct(newProduct);
