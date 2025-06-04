@@ -1,13 +1,7 @@
 # 📦 Sistema de Cadastro de Produtos
 
-Aplicação web desenvolvida em **React.js** com **Tailwind CSS** para realizar o **cadastro, listagem e visualização de produtos**, com persistência local usando o `localStorage`.
+Aplicação web desenvolvida em **React.js** com **Tailwind CSS** para realizar vendas, **cadastro, listagem e visualização de produtos**, com persistência local usando o `localStorage`.
 
-## 🖼️ Preview
-
-![Preview do Sistema](![image](https://github.com/user-attachments/assets/04fd3405-1282-4246-8b02-1163936b1658)
-)
-
----
 
 ## 🚀 Funcionalidades
 
