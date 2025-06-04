@@ -4,12 +4,32 @@ import api from "../../lib/api";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const dadosSalvos = JSON.parse(localStorage.getItem("products")) || [];
-    setProducts(dadosSalvos);
+   const fetchProducts = async () => {
+    try {
+      const response = await api.get("/products");
+      setProducts(response.data);
+    }catch(err) {
+      console.error("Erro ao buscar produtos:", err);
+      setError("Não foi possível carregar os produtos.");
+    }finally {
+      setLoading(false);
+    }
+   };
+   fetchProducts();
   }, []);
+  if (loading) {
+    return <p className="text-center py-4">Carregando produtos...</p>;
+  }
 
+  if (error) {
+    return(
+      <p className="text-red-500">{error}</p>
+    )
+  }
   return (
     <div className="overflow-x-auto rounded-lg shadow">
       <table className="min-w-full bg-white border border-gray-200">
@@ -39,12 +59,12 @@ export default function ProductList() {
           ) : (
             products.map((p) => (
               <tr key={p.id} className="border-b hover:bg-gray-50">
-                <td className="px-4 py-2 text-sm text-gray-800">{p.codigo}</td>
+                <td className="px-4 py-2 text-sm text-gray-800">{p.code}</td>
                 <td className="px-4 py-2 text-sm text-gray-800">{p.name}</td>
                 <td className="px-4 py-2 text-sm text-gray-800">
                   <FormatterPrice value={p.price} />
                 </td>
-                <td className="px-4 py-2 text-sm text-gray-800">{p.active}</td>
+                <td className="px-4 py-2 text-sm text-gray-800">{p.active ? "Sim" : "Não"}</td>
               </tr>
             ))
           )}
