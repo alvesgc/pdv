@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FormatterPrice from "./../../utils/formatters";
+import api from "../../lib/api";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
