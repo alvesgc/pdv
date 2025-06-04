@@ -1,12 +1,65 @@
-# React + Vite
+# 📦 Sistema de Cadastro de Produtos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web desenvolvida em **React.js** com **Tailwind CSS** para realizar vendas, **cadastro, listagem e visualização de produtos**, com persistência local usando o `localStorage`.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Funcionalidades
 
-## Expanding the ESLint configuration
+- ✅ Cadastro de produtos com código, nome e preço
+- ✅ Visualização de produtos em formato de tabela
+- ✅ Persistência dos dados no `localStorage`
+- ✅ Interface moderna com Tailwind CSS
+- ❌ Sem uso de rotas — interface muda sem recarregar a página
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tecnologias
+
+- [React.js](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- `localStorage` (API do navegador)
+- Context API para gerenciamento de estado global
+
+---
+
+## 📦 Instalação e Uso
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/seu-repo.git
+cd seu-repo
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento
+npm run dev
+```
+Acesse em: http://localhost:5173 (ou a porta definida pelo Vite)
+
+---
+
+🧪 Como Usar
+Preencha os campos do formulário com o código, nome e preço do produto.
+
+Clique em "Adicionar Produto".
+
+O produto será exibido em uma tabela listada abaixo.
+
+Os dados são armazenados localmente, mesmo após recarregar a página.
+
+✨ Melhorias Futuras
+ Edição e exclusão de produtos
+
+ Integração com backend (SuperBase, Node.js etc.)
+
+ Filtros e busca por nome ou código
+
+ Responsividade mobile aprimorada
+ 
+📄 Licença
+Este projeto está sob a licença MIT.
+
+🙋‍♂️ Autor
+Desenvolvido por Alisson
+💼 GitHub: @alvesgc
