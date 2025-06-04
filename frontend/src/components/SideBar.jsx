@@ -12,7 +12,7 @@ const SideBar = ({ visible, onClose }) => {
         visible ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div className="flex items-center justify-between p-4 border-b border-gray-600">
+      <div className="flex items-center justify-between p-3 mt-11 border-b border-gray-600">
         <h2 className="text-lg font-bold">Módulos</h2>
         <button onClick={onClose} className="text-white text-xl">
          {/* <FiX /> */}
