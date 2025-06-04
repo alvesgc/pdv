@@ -9,7 +9,6 @@ import CartSummary from "../components/CartSummary";
 import ActionButton from "../components/ActionButton";
 import Input from "../components/Input";
 
-
 export default function Home() {
   const { cart, addToCart, removeFromCart, clearCart } = useCart();
 
@@ -22,7 +21,7 @@ export default function Home() {
   const total = cart.reduce((sum, p) => sum + p.price * p.quantity, 0);
   const itemPrice = (selectedProduct?.price ?? 0) * quantity;
   const discount = 0;
-  
+
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchTerm(query);
@@ -42,7 +41,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 font-sans text-gray-800">
+    <div className="min-h-screen bg-gray-100 p-11 font-sans text-gray-800">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 h-[90vh]">
         <div className="md:col-span-2 bg-white p-6 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold text-center text-gray-900 mb-6">
@@ -92,7 +91,12 @@ export default function Home() {
             </div>
           </div>
 
-          <CartSummary itemCount={itemCount} total={total} itemPrice={itemPrice} discount={discount}/>
+          <CartSummary
+            itemCount={itemCount}
+            total={total}
+            itemPrice={itemPrice}
+            discount={discount}
+          />
         </div>
 
         <div className="md:col-span-1 bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between h-full">

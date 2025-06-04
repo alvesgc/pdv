@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import { FiX } from "react-icons/fi";
-// import { MdOutlineProductionQuantityLimits } from "react-icons/md";
-// import { MdAttachMoney } from "react-icons/md";
-// import { GrCatalog } from "react-icons/gr";
+import {
+  XMarkIcon,
+  ShoppingCartIcon,
+  ClipboardDocumentIcon,
+  CircleStackIcon,
+} from "@heroicons/react/16/solid";
 
 const SideBar = ({ visible, onClose }) => {
   return (
@@ -12,35 +14,46 @@ const SideBar = ({ visible, onClose }) => {
         visible ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div className="flex items-center justify-between p-4 border-b border-gray-600">
+      <div className="flex items-center justify-between p-3 mt-11 border-b border-gray-600">
         <h2 className="text-lg font-bold">Módulos</h2>
         <button onClick={onClose} className="text-white text-xl">
-         {/* <FiX /> */}
+          <XMarkIcon className="size-6" />
         </button>
       </div>
       <ul className="space-y-2">
-       <li>
-          <Link to="/" onClick={onClose} className="block hover:bg-gray-700 p-2 rounded">
-            <div className="flex items-center gap-2"> 
-              {/* <MdAttachMoney />  */}
+        <li>
+          <Link
+            to="/"
+            onClick={onClose}
+            className="block hover:bg-gray-700 p-2 rounded"
+          >
+            <div className="flex items-center gap-2">
+              <ShoppingCartIcon className="size-5" />
               Vendas
-            </div >
+            </div>
           </Link>
         </li>
         <li>
-          <Link to="/products" onClick={onClose} className="block hover:bg-gray-700 p-2 rounded">
-            <div className="flex items-center gap-2"> 
-              {/* <MdOutlineProductionQuantityLimits />  */}
-              Produtos
-            </div >
+          <Link
+            to="/products"
+            onClick={onClose}
+            className="block hover:bg-gray-700 p-2 rounded"
+          >
+            <div className="flex items-center gap-2">
+              <CircleStackIcon className="size-5" />
+              Produtos</div>
           </Link>
         </li>
         <li>
-          <Link to="/Log" onClick={onClose} className="block hover:bg-gray-700 p-2 rounded">
-            <div className="flex items-center gap-2"> 
-              {/* <GrCatalog /> */}
+          <Link
+            to="/Log"
+            onClick={onClose}
+            className="block hover:bg-gray-700 p-2 rounded"
+          >
+            <div className="flex items-center gap-2">
+              <ClipboardDocumentIcon className="size-5" />
               Histórico
-            </div >
+            </div>
           </Link>
         </li>
       </ul>

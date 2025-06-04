@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import FormatterPrice from "./../../utils/formatters";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
@@ -40,7 +41,7 @@ export default function ProductList() {
                 <td className="px-4 py-2 text-sm text-gray-800">{p.codigo}</td>
                 <td className="px-4 py-2 text-sm text-gray-800">{p.name}</td>
                 <td className="px-4 py-2 text-sm text-gray-800">
-                 R$ {Number(p.price || 0).toFixed(2)}
+                  <FormatterPrice value={p.price} />
                 </td>
                 <td className="px-4 py-2 text-sm text-gray-800">{p.active}</td>
               </tr>
