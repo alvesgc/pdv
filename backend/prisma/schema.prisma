@@ -9,7 +9,7 @@ datasource db {
 
 model Product {
   id        Int      @id @default(autoincrement())
-  code    Int
+  code    String
   bar_code String
   name      String
   price     Float

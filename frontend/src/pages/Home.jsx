@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
-import { mockFetchProducts } from "../lib/mockFetchProducts";
+import { fetchProducts } from "../lib/fetchProducts";
 
 import ProductSuggestions from "../components/ProductSuggestions";
 import SelectedProduct from "../components/SelectedProduct/";
@@ -22,11 +22,11 @@ export default function Home() {
   const itemPrice = (selectedProduct?.price ?? 0) * quantity;
   const discount = 0;
 
-  const handleSearchChange = (e) => {
+  const handleSearchChange = async (e) => {
     const query = e.target.value;
     setSearchTerm(query);
     if (query.length >= 2) {
-      const results = mockFetchProducts(query);
+      const results = await fetchProducts(query);
       setSuggestions(results);
     } else {
       setSuggestions([]);

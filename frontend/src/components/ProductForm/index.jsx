@@ -24,7 +24,7 @@ export default function ProductForm() {
       name: productName,
       barcode: barcode || productCode,
       quantity: parseInt(productQuantity),
-      price: parseFloat(productPrice.replace(",", ".")),
+      price: parseFloat(productPrice),
       active: true,
     };
 
