@@ -14,3 +14,11 @@ model Product {
   quantity  Int
   createdAt DateTime @default(now())
 }
+
+model LogAlteracao {
+  id              Int      @id @default(autoincrement())
+  acao            String   // INSERT | UPDATE | DELETE
+  alteracao       String   
+  dataHora        DateTime @default(now())
+  usuarioId       Int
+}

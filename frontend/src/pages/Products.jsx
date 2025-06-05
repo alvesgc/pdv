@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import ProductForm from "../components/ProductForm";
-import ProductList from "../components/ProductList";
+import LogList from "../components/LogList";
 import { PlusIcon, ListBulletIcon } from "@heroicons/react/24/outline";
 
 export default function Products() {
-  const [page, setPage] = useState("cadastrar");
+  const [page, setPage] = useState("cadastrar ");
 
   const menuClasses = (active) =>
     `flex items-center gap-1 px-4 py-2 border-b-2 cursor-pointer transition ${
