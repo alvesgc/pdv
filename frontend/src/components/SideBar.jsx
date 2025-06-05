@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   XMarkIcon,
   ShoppingCartIcon,
-  ClipboardDocumentIcon,
+  ClipboardDocumentListIcon,
   CircleStackIcon,
 } from "@heroicons/react/16/solid";
 
@@ -51,7 +51,7 @@ const SideBar = ({ visible, onClose }) => {
             className="block hover:bg-gray-700 p-2 rounded"
           >
             <div className="flex items-center gap-2">
-              <ClipboardDocumentIcon className="size-5" />
+              <ClipboardDocumentListIcon className="size-5" />
               Histórico
             </div>
           </Link>
