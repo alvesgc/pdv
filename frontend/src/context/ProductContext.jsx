@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import api from "../lib/api";
+
 const ProductContext = createContext();
 
 export const useProducts = () => {
@@ -6,35 +8,36 @@ export const useProducts = () => {
 };
 
 export const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState(() => {
-    try {
-      const storedProducts = localStorage.getItem('products');
+  const [products, setProducts] = useState([]);
 
-      return storedProducts ? JSON.parse(storedProducts) : [];
-    } catch (error) {
-      console.error("Erro ao carregar produtos do localStorage:", error);
-      return [];
-    }
-  });
   useEffect(() => {
-
-    try {
-      localStorage.setItem('products', JSON.stringify(products));
-    } catch (error) {
-      console.error("Erro ao salvar produtos no localStorage:", error); 
-    }
-  }, [products]);
-
-  const addProduct = (newProduct) => {
-    const productWithId = {
-      ...newProduct,
-      id: newProduct.id || Date.now(),
+    const fetchProducts = async () => {
+      try {
+        const response = await api.get("/products");
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      }
     };
-    setProducts((prevProducts) => [...prevProducts, productWithId]);
+    fetchProducts();
+  }, []);
+
+  const addProduct = async (newProduct) => {
+    try {
+      const response = await api.post("/products", newProduct);
+      setProducts((prevProducts) => [...prevProducts, response.data]);
+    } catch (error) {
+      console.error("Failed to add product:", error);
+    }
   };
 
-  const removeProduct = (id) => {
-    setProducts((prevProducts) => prevProducts.filter(p => p.id !== id));
+  const removeProduct = async (id) => {
+    try {
+      await api.delete(`/products/${id}`);
+      setProducts((prevProducts) => prevProducts.filter((p) => p.id !== id));
+    } catch (error) {
+      console.error("Failed to remove product:", error);
+    }
   };
 
   const value = {
@@ -44,8 +47,6 @@ export const ProductProvider = ({ children }) => {
   };
 
   return (
-    <ProductContext.Provider value={value}>
-      {children}
-    </ProductContext.Provider>
+    <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
   );
 };

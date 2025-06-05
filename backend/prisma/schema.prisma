@@ -8,17 +8,12 @@ datasource db {
 }
 
 model Product {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
+  code    String
+  bar_code String
   name      String
   price     Float
-  quantity  Int
+  quantity  Int @default(0)
+  active    Boolean @default(true)
   createdAt DateTime @default(now())
-}
-
-model LogAlteracao {
-  id              Int      @id @default(autoincrement())
-  acao            String   // INSERT | UPDATE | DELETE
-  alteracao       String   
-  dataHora        DateTime @default(now())
-  usuarioId       Int
 }
