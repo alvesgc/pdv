@@ -52,7 +52,7 @@ const SideBar = ({ visible, onClose }) => {
           >
             <div className="flex items-center gap-2">
               <ClipboardDocumentListIcon className="size-5" />
-              Histórico
+              Log
             </div>
           </Link>
         </li>

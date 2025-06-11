@@ -8,8 +8,9 @@ export default function ProductForm() {
   const [productCode, setProductCode] = useState("");
   const [barcode, setBarcode] = useState("");
   const [productQuantity, setProductQuantity] = useState(1);
+  const [productActive, setProductAct] = useState("True");
 
-  const { addProduct } = useProducts(); 
+  const { addProduct } = useProducts();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,17 +26,18 @@ export default function ProductForm() {
       barcode: barcode || productCode,
       quantity: parseInt(productQuantity),
       price: parseFloat(productPrice),
-      active: true,
+      active: productActive,
     };
 
     try {
-      await addProduct(newProduct); 
+      await addProduct(newProduct);
       alert("Produto adicionado com sucesso!");
       setProductName("");
       setProductPrice("");
       setProductCode("");
       setBarcode("");
       setProductQuantity(1);
+      setProductAct("True");
     } catch (error) {
       console.error("Erro ao adicionar produto:", error);
       alert("Erro ao adicionar produto. Tente novamente.");
@@ -109,6 +111,18 @@ export default function ProductForm() {
           placeholder="Digite o preço do produto"
           required
         />
+      </div>
+
+      <div className="mb-10 mt-5">
+        <label className="text-gray-700 text-sm font-bold mb-2">
+           Produto Ativo:
+          <input type="checkbox"
+            checked={productActive === "True"}
+            onChange={(e) => setProductAct(e.target.checked ? "True" : "False")}
+            className="ml-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"  
+         ></input>
+        </label>
+      
       </div>
 
       <button

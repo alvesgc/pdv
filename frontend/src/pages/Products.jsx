@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import LogList from "../components/LogList";
+import ProductForm from "../components/ProductForm";
+import ProductList from "../components/ProductList";
 import { PlusIcon, ListBulletIcon } from "@heroicons/react/24/outline";
 
 export default function Products() {

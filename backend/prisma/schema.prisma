@@ -17,3 +17,11 @@ model Product {
   bar_code  String
   code      String
 }
+
+model Log {
+  id        Int      @id @default(autoincrement())
+  action    String
+  changes   String
+  createdAt DateTime @default(now())
+  table     String  
+}
