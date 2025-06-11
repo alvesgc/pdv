@@ -99,7 +99,11 @@ export default function Home() {
           />
         </div>
 
-        <SalesSummary cart={cart} onClearCart={clearCart} />
+        <SalesSummary
+          cart={cart}
+          onClearCart={clearCart}
+          selectedProduct={selectedProduct}
+        />
       </div>
     </div>
   );

@@ -57,7 +57,7 @@ export default function SalesSummary({ cart, onClearCart, selectedProduct }) {
 }
 
 function ProductImage({ product }) {
-  const image = product?.imageUrl || "../src/assets/sem-imagem.png";
+  const image = product?.imageUrl || "/src/public/assets/sem-imagem.png";
 
   return (
     <div className="relative h-48 w-full flex items-center justify-center rounded mb-4 overflow-hidden">
