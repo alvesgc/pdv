@@ -67,37 +67,34 @@ export default function ProductForm() {
       onSubmit={handleSubmit}
       className="mb-8 p-4 border border-gray-200 rounded-md"
     >
-      {/* Código do Produto */}
-
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
-          Código do Produto:
-        </label>
-        <Input
-          type="text"
-          value={productCode}
-          onChange={(e) => setProductCode(e.target.value)}
-          placeholder="Digite o código do produto"
-          required
-        />
-      </div>
-
-      {/* Código de barras do Produto */}
-
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
-          Código de barras do Produto:
-        </label>
-        <Input
-          type="text"
-          value={barcode}
-          onChange={(e) => setBarcode(e.target.value)}
-          placeholder="Digite o código de barras do produto"
-        />
+      {/* Código do Produto + Código de Barras */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Código do Produto:
+          </label>
+          <Input
+            type="text"
+            value={productCode}
+            onChange={(e) => setProductCode(e.target.value)}
+            placeholder="Digite o código do produto"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Código de barras:
+          </label>
+          <Input
+            type="text"
+            value={barcode}
+            onChange={(e) => setBarcode(e.target.value)}
+            placeholder="Digite o código de barras"
+          />
+        </div>
       </div>
 
       {/* Nome do Produto */}
-
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2">
           Nome do Produto:
@@ -111,42 +108,39 @@ export default function ProductForm() {
         />
       </div>
 
-      {/* Quantidade do Produto */}
-
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
-          Quantidade:
-        </label>
-        <Input
-          type="number"
-          value={productQuantity}
-          onChange={(e) => setProductQuantity(e.target.value)}
-          min="1"
-          placeholder="Digite a quantidade do produto"
-          required
-        />
+      {/* Quantidade + Preço */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Quantidade:
+          </label>
+          <Input
+            type="number"
+            value={productQuantity}
+            onChange={(e) => setProductQuantity(e.target.value)}
+            min="1"
+            placeholder="Digite a quantidade"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Preço:
+          </label>
+          <Input
+            type="number"
+            value={productPrice}
+            onChange={(e) => setProductPrice(e.target.value)}
+            step="0.01"
+            min="0.01"
+            placeholder="Digite o preço"
+            required
+          />
+        </div>
       </div>
 
-      {/* Preço do Produto */}
-
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
-          Preço:
-        </label>
-        <Input
-          type="number"
-          value={productPrice}
-          onChange={(e) => setProductPrice(e.target.value)}
-          step="0.01"
-          min="0.01"
-          placeholder="Digite o preço do produto"
-          required
-        />
-      </div>
-
-      {/* Imagem do Produto */}
-
-      <div className="mb-4">
+      {/* Imagem */}
+      <div className="mb-6">
         <label className="block text-gray-700 text-sm font-bold mb-2">
           Imagem do Produto:
         </label>
