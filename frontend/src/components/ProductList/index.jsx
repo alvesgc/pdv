@@ -24,7 +24,7 @@ export default function ProductList() {
   if (loading) {
     return <p className="text-center py-4">Carregando produtos...</p>;
   }
-
+ 
   if (error) {
     return(
       <p className="text-red-500">{error}</p>
