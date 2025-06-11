@@ -6,8 +6,8 @@ import ProductSuggestions from "../components/ProductSuggestions";
 import SelectedProduct from "../components/SelectedProduct/";
 import CartItem from "../components/CartItem";
 import CartSummary from "../components/CartSummary";
-import ActionButton from "../components/ActionButton";
 import Input from "../components/Input";
+import SalesSummary from "../components/SalesSummary";
 
 export default function Home() {
   const { cart, addToCart, removeFromCart, clearCart } = useCart();
@@ -99,25 +99,11 @@ export default function Home() {
           />
         </div>
 
-        <div className="md:col-span-1 bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between h-full">
-          <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
-            Resumo da Venda
-          </h2>
-          <div className="flex flex-end justify-between items-center">
-            <ActionButton
-              text="Finalizar Venda"
-              onClick={clearCart}
-              disabled={cart.length === 0}
-              color="green"
-            />
-            <ActionButton
-              text="Cancelar Venda"
-              onClick={clearCart}
-              disabled={cart.length === 0}
-              color="red"
-            />
-          </div>
-        </div>
+        <SalesSummary
+          cart={cart}
+          onClearCart={clearCart}
+          selectedProduct={selectedProduct}
+        />
       </div>
     </div>
   );

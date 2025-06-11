@@ -12,7 +12,7 @@ export const getProducts = async (req,res) => {
 }
 
 export const createProduct = async (req,res) => {
-  const {code, name, barcode, quantity, price, active} = req.body;
+  const {code, name, barcode, quantity, price, active, imageUrl, clientId} = req.body;
 
    if (!code || !name || price == null || quantity == null || quantity < 0 || price < 0) {
   return res.status(400).json({ error: "Missing or invalid fields" });
@@ -26,7 +26,8 @@ export const createProduct = async (req,res) => {
         bar_code: barcode || code,
         quantity,
         price,
-        active
+        active,
+        imageUrl: imageUrl || null
       }
     });
     res.status(201).json(newProduct);
