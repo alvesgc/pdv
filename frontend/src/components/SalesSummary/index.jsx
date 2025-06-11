@@ -1,7 +1,7 @@
 import ActionButton from "../ActionButton";
 import { useState } from "react";
 
-export default function SalesSummary({ cart, onClearCart }) {
+export default function SalesSummary({ cart, onClearCart, selectedProduct }) {
   const [showModal, setShowModal] = useState(false);
 
   const handleFinalize = () => {
@@ -19,6 +19,9 @@ export default function SalesSummary({ cart, onClearCart }) {
         <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
           Resumo da Venda
         </h2>
+
+        {/* Imagem do produto */}
+        <ProductImage product={selectedProduct} />
 
         <div className="flex flex-end justify-between items-center">
           <ActionButton
@@ -50,5 +53,19 @@ export default function SalesSummary({ cart, onClearCart }) {
         </div>
       )}
     </>
+  );
+}
+
+function ProductImage({ product }) {
+  const image = product?.imageUrl || "../src/assets/sem-imagem.png";
+
+  return (
+    <div className="relative h-48 w-full flex items-center justify-center rounded mb-4 overflow-hidden">
+      <img
+        src={image}
+        alt={product?.name || "Produto sem imagem"}
+        className="object-contain max-h-full max-w-full"
+      />
+    </div>
   );
 }
