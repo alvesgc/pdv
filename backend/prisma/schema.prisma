@@ -8,20 +8,34 @@ datasource db {
 }
 
 model Product {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   name      String
   price     Float
-  quantity  Int      @default(0)
+  quantity  Int
   active    Boolean  @default(true)
   createdAt DateTime @default(now())
-  bar_code  String
-  code      String
+  bar_code  String?
+  code      String?
+  imageUrl  String?
+  clientId  String?
+  client    Client?   @relation(fields: [clientId], references: [id])
+
+  @@index([clientId])
 }
 
-model Log {
-  id        Int      @id @default(autoincrement())
-  action    String
-  changes   String
-  createdAt DateTime @default(now())
-  table     String  
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+  clientId String
+  client   Client @relation(fields: [clientId], references: [id])
+}
+
+model Client {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  name      String
+  createdAt DateTime  @default(now())
+  products  Product[]
+  users     User[]
 }

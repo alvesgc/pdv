@@ -46,6 +46,18 @@ const SideBar = ({ visible, onClose }) => {
         </li>
         <li>
           <Link
+            to="/stock"
+            onClick={onClose}
+            className="block hover:bg-gray-700 p-2 rounded"
+          >
+            <div className="flex items-center gap-2">
+              <CircleStackIcon className="size-5" />
+              Estoque
+            </div>
+          </Link>
+        </li>
+        <li>
+          <Link
             to="/Log"
             onClick={onClose}
             className="block hover:bg-gray-700 p-2 rounded"
