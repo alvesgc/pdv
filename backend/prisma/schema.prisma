@@ -15,7 +15,7 @@ model Product {
   active    Boolean  @default(true)
   createdAt DateTime @default(now())
   bar_code  String?
-  code      String?
+  code      String    @unique
   imageUrl  String?
   clientId  String?
   client    Client?   @relation(fields: [clientId], references: [id])
