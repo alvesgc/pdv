@@ -6,6 +6,7 @@ const Header = ({clickMenu}) => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
             </button>
+            <div></div>
             <h1 className="text-2xl font-semibold">NeoPDV</h1>
         </header>
     )
