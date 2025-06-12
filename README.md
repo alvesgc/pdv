@@ -1,5 +1,4 @@
-# 📦 Sistema de Cadastro de Produtos
-
+# 📦 Sistema de PDV
 Aplicação web desenvolvida em **React.js** com **Tailwind CSS** para realizar vendas, **cadastro, listagem e visualização de produtos**, com persistência local usando o `localStorage`.
 
 
