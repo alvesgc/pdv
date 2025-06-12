@@ -1,4 +1,6 @@
-export default function ActionButton({ onClick, disabled, text, color }) {
+import React, { useEffect } from "react";
+
+export default function ActionButton({ onClick, disabled, text, color, keyTrigger }) {
   const baseStyle =
     "w-40 py-3 px-4 rounded-md text-white font-semibold transition duration-150 ease-in-out";
 
@@ -13,6 +15,22 @@ export default function ActionButton({ onClick, disabled, text, color }) {
   const fullClassName = `${baseStyle} ${
     disabled ? "bg-gray-400 cursor-not-allowed" : activeStyle
   }`;
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      const keys = Array.isArray(keyTrigger) ? keyTrigger : [keyTrigger];
+
+      if (keys.includes(e.key) && !disabled) {
+        e.preventDefault();
+        onClick?.();
+      }
+    };
+
+    if (keyTrigger) {
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [keyTrigger, disabled, onClick]);
 
   return (
     <button onClick={onClick} disabled={disabled} className={fullClassName}>

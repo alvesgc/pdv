@@ -13,6 +13,12 @@ export default function SalesSummary({ cart, onClearCart, selectedProduct }) {
     setShowModal(false);
   };
 
+  // const handleKeyDown = (event) => {
+  //   if(event.ley === 'F6' && cart.length > 0) {
+  //     event.preventDefault();
+  //     handleFinalize();
+  //   }
+  //}
   return (
     <>
       <div className="md:col-span-1 bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between h-full">
@@ -25,16 +31,18 @@ export default function SalesSummary({ cart, onClearCart, selectedProduct }) {
 
         <div className="flex flex-end justify-between items-center">
           <ActionButton
-            text="Finalizar Venda"
+            text="Finalizar Venda (F6)"
             onClick={handleFinalize}
             disabled={cart.length === 0}
             color="green"
+            keyTrigger='F6'
           />
           <ActionButton
-            text="Cancelar Venda"
+            text="Cancelar Venda (F7)"
             onClick={onClearCart}
             disabled={cart.length === 0}
             color="red"
+            keyTrigger='F7'
           />
         </div>
       </div>
