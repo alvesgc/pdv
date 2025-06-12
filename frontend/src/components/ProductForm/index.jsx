@@ -10,7 +10,8 @@ export default function ProductForm() {
   const [barcode, setBarcode] = useState("");
   const [productQuantity, setProductQuantity] = useState(1);
   const [imageFile, setImageFile] = useState(null);
-  const { addProduct } = useProducts();
+  const {addProduct } = useProducts();
+  const [productActive, setProductActive] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,8 +45,8 @@ export default function ProductForm() {
       barcode: barcode || productCode,
       quantity: parseInt(productQuantity),
       price: parseFloat(productPrice),
-      active: true,
-      imageUrl,
+      active: productActive,
+      imageUrl: imageUrl,
     };
 
     try {
@@ -57,6 +58,7 @@ export default function ProductForm() {
       setBarcode("");
       setProductQuantity(1);
       setImageFile(null);
+      setProductActive(true)
     } catch (error) {
       console.error("Erro ao adicionar produto:", error);
       alert("Erro ao adicionar produto. Tente novamente.");
@@ -139,8 +141,9 @@ export default function ProductForm() {
         </div>
       </div>
 
-      {/* Imagem */}
-      <div className="mb-6">
+      {/* Imagem + Produto Ativo */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
         <label className="block text-gray-700 text-sm font-bold mb-2">
           Imagem do Produto:
         </label>
@@ -150,6 +153,17 @@ export default function ProductForm() {
           onChange={(e) => setImageFile(e.target.files[0])}
           className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-green-100 file:text-green-700 hover:file:bg-green-200"
         />
+        </div>
+        <div> 
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Produto Ativo?
+          </label>
+          <input type="checkbox" 
+            onChange={(e) => setProductActive(e.target.checked)}   
+            checked={productActive}    
+          />
+
+        </div>
       </div>
 
       <button

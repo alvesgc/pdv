@@ -24,7 +24,7 @@ export default function ProductList() {
   if (loading) {
     return <p className="text-center py-4">Carregando produtos...</p>;
   }
-
+ 
   if (error) {
     return(
       <p className="text-red-500">{error}</p>
@@ -57,7 +57,8 @@ export default function ProductList() {
               </td>
             </tr>
           ) : (
-            products.map((p) => (
+            products.map((p) => ( 
+              p.active &&
               <tr key={p.id} className="border-b hover:bg-gray-50">
                 <td className="px-4 py-2 text-sm text-gray-800">{p.code}</td>
                 <td className="px-4 py-2 text-sm text-gray-800">{p.name}</td>
