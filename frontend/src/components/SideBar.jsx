@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   XMarkIcon,
@@ -8,25 +8,54 @@ import {
 } from "@heroicons/react/16/solid";
 
 const SideBar = ({ visible, onClose }) => {
+  const sidebarRef = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target)
+      ) {
+        onClose();
+      }
+    };
+
+    if (visible) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [visible, onClose]);
+
   return (
     <div
-      className={`fixed top-0 left-0 h-full bg-gray-800 text-white w-64 p-4 transition-transform duration-300 z-40 ${
+      ref={sidebarRef}
+      className={`fixed top-[60px] left-0 h-full bg-gray-900 text-white w-64 p-4 transition-transform duration-300 z-50 ${
         visible ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div className="flex items-center justify-between p-3 mt-11 border-b border-gray-600">
-        <h2 className="text-lg font-bold">Módulos</h2>
+      <div className="flex items-center justify-between p-3 border-b border-gray-600">
+        <a href="/" className="flex items-center">
+          <img
+            src="https://avatars.githubusercontent.com/u/140769066?s=96&v=4"
+            className="h-6 me-3 sm:h-7"
+            alt="NeoPDV Logo"
+          />
+          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+            NeoPDV
+          </span>
+        </a>
         <button onClick={onClose} className="text-white text-xl">
           <XMarkIcon className="size-6" />
         </button>
       </div>
       <ul className="space-y-2">
         <li>
-          <Link
-            to="/"
-            onClick={onClose}
-            className="block hover:bg-gray-700 p-2 rounded"
-          >
+          <Link to="/" onClick={onClose} className="block hover:bg-gray-700 p-2 rounded">
             <div className="flex items-center gap-2">
               <ShoppingCartIcon className="size-5" />
               Vendas
@@ -34,22 +63,15 @@ const SideBar = ({ visible, onClose }) => {
           </Link>
         </li>
         <li>
-          <Link
-            to="/products"
-            onClick={onClose}
-            className="block hover:bg-gray-700 p-2 rounded"
-          >
+          <Link to="/products" onClick={onClose} className="block hover:bg-gray-700 p-2 rounded">
             <div className="flex items-center gap-2">
               <CircleStackIcon className="size-5" />
-              Produtos</div>
+              Produtos
+            </div>
           </Link>
         </li>
         <li>
-          <Link
-            to="/stock"
-            onClick={onClose}
-            className="block hover:bg-gray-700 p-2 rounded"
-          >
+          <Link to="/stock" onClick={onClose} className="block hover:bg-gray-700 p-2 rounded">
             <div className="flex items-center gap-2">
               <CircleStackIcon className="size-5" />
               Estoque
@@ -57,11 +79,7 @@ const SideBar = ({ visible, onClose }) => {
           </Link>
         </li>
         <li>
-          <Link
-            to="/Log"
-            onClick={onClose}
-            className="block hover:bg-gray-700 p-2 rounded"
-          >
+          <Link to="/Log" onClick={onClose} className="block hover:bg-gray-700 p-2 rounded">
             <div className="flex items-center gap-2">
               <ClipboardDocumentListIcon className="size-5" />
               Log
