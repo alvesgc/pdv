@@ -8,7 +8,7 @@ Aplicação web desenvolvida em **React.js** com **Tailwind CSS** para realizar 
 - ✅ Visualização de produtos em formato de tabela
 - ✅ Persistência dos dados no `localStorage`
 - ✅ Interface moderna com Tailwind CSS
-- ❌ Sem uso de rotas — interface muda sem recarregar a página
+- ✅ Roteamento e regras de acesso com JWT
 
 ---
 
