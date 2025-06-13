@@ -78,7 +78,10 @@ export default function ProductForm() {
           <Input
             type="text"
             value={productCode}
-            onChange={(e) => setProductCode(e.target.value)}
+            onChange={(e) => {const valorLimpo = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
+            setProductCode(valorLimpo)
+          }
+        }
             placeholder="Digite o código do produto"
             required
           />
@@ -90,7 +93,9 @@ export default function ProductForm() {
           <Input
             type="text"
             value={barcode}
-            onChange={(e) => setBarcode(e.target.value)}
+            onChange={(e) => {const valorNumerico = e.target.value.replace(/[^0-9]/g,"");
+              setBarcode(valorNumerico);
+            }}
             placeholder="Digite o código de barras"
           />
         </div>
@@ -117,9 +122,12 @@ export default function ProductForm() {
             Quantidade:
           </label>
           <Input
-            type="number"
+            type="text"
             value={productQuantity}
-            onChange={(e) => setProductQuantity(e.target.value)}
+            onChange={(e) => {const valorQuant = e.target.value.replace(/[^0-9]/g, "");
+              setProductQuantity(valorQuant)
+            }}
+              
             min="1"
             placeholder="Digite a quantidade"
             required
@@ -130,9 +138,11 @@ export default function ProductForm() {
             Preço:
           </label>
           <Input
-            type="number"
+            type="text"
             value={productPrice}
-            onChange={(e) => setProductPrice(e.target.value)}
+            onChange={(e) => {const valorPreco = e.target.value.replace(/[^0-9.,]/g, ""); 
+              setProductPrice(valorPreco.replace(",", "."));
+            }}
             step="0.01"
             min="0.01"
             placeholder="Digite o preço"
