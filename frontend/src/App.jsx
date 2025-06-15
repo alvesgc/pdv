@@ -8,19 +8,10 @@ import Layout from "./components/Layout";
 // import Stock from "./pages/Stock";
 import "./index.css";
 import Register from "./auth/Register";
+import PrivateRoute from "./routes/PrivateRoute";
 
 export default function App() {
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          {/* <Route path="/Stock" element={<Stock />} /> */}
-          <Route path="/Log" element={<Log />} />
-        </Routes>
-      </Layout>
-    </Router>
     <AuthProvider>
       <Router>
         <Layout>

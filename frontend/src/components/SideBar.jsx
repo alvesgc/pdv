@@ -34,7 +34,7 @@ const SideBar = ({ visible, onClose }) => {
   return (
     <div
       ref={sidebarRef}
-      className={`fixed top-[60px] left-0 h-full bg-gray-900 text-white w-64 p-4 transition-transform duration-300 z-50 ${
+      className={`fixed top-[60px] left-0 h-full bg-gray-900 text-white w-64 p-4 transition-transform duration-150 z-50 ${
         visible ? "translate-x-0" : "-translate-x-full"
       }`}
     >
