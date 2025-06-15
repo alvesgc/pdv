@@ -5,9 +5,10 @@ import Login from './auth/login';
 import Products from "./pages/Products";
 import Log from "./pages/Log";
 import Layout from "./components/Layout";
-import PrivateRoute from './routes/PrivateRoute'; // importa aqui
+// import Stock from "./pages/Stock";
 import "./index.css";
 import Register from "./auth/Register";
+import PrivateRoute from "./routes/PrivateRoute";
 
 export default function App() {
   return (

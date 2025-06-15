@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FormatterPrice from "./../../utils/formatters";
 import api from "../../lib/api";
+import TableSkeleton from "../Skeleton";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
@@ -10,7 +11,7 @@ export default function ProductList() {
   useEffect(() => {
    const fetchProducts = async () => {
     try {
-      const response = await api.get("/products");
+      const response = await api.get("/products");  
       setProducts(response.data);
     }catch(err) {
       console.error("Erro ao buscar produtos:", err);
@@ -22,7 +23,7 @@ export default function ProductList() {
    fetchProducts();
   }, []);
   if (loading) {
-    return <p className="text-center py-4">Carregando produtos...</p>;
+    return <TableSkeleton />; 
   }
  
   if (error) {
