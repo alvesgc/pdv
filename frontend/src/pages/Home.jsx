@@ -25,7 +25,7 @@ export default function Home() {
   const handleSearchChange = async (e) => {
     const query = e.target.value;
     setSearchTerm(query);
-    if (query.length >= 2) {
+    if (query.length > 0) {
       const results = await fetchProducts(query);
       setSuggestions(results);
     } else {
