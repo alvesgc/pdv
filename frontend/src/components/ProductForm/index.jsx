@@ -64,109 +64,113 @@ export default function ProductForm() {
       alert("Erro ao adicionar produto. Tente novamente.");
     }
   };
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="mb-8 p-4 border border-gray-200 rounded-md"
-    >
-      {/* Código do Produto + Código de Barras */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
+    <div className="flex flex-col md:flex-row md:justify-between">
+      <form
+        onSubmit={handleSubmit}
+        className="mb-4 md:mb-8 p-4 border border-gray-200 rounded-md w-full md:mr-4 md:flex-grow"
+      >
+        {/* Código do Produto + Código de Barras */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Código do Produto:
+            </label>
+            <Input
+              type="text"
+              value={productCode}
+              onChange={(e) => {
+                const valorLimpo = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
+                setProductCode(valorLimpo);
+              }}
+              placeholder="Digite o código do produto"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Código de barras:
+            </label>
+            <Input
+              type="text"
+              value={barcode}
+              onChange={(e) => {
+                const valorNumerico = e.target.value.replace(/[^0-9]/g, "");
+                setBarcode(valorNumerico);
+              }}
+              placeholder="Digite o código de barras"
+            />
+          </div>
+        </div>
+
+        {/* Nome do Produto */}
+        <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Código do Produto:
+            Nome do Produto:
           </label>
           <Input
             type="text"
-            value={productCode}
-            onChange={(e) => {const valorLimpo = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
-            setProductCode(valorLimpo)
-          }
-        }
-            placeholder="Digite o código do produto"
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
+            placeholder="Digite o nome do produto"
             required
           />
         </div>
-        <div>
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Código de barras:
-          </label>
-          <Input
-            type="text"
-            value={barcode}
-            onChange={(e) => {const valorNumerico = e.target.value.replace(/[^0-9]/g,"");
-              setBarcode(valorNumerico);
-            }}
-            placeholder="Digite o código de barras"
-          />
-        </div>
-      </div>
 
-      {/* Nome do Produto */}
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
-          Nome do Produto:
-        </label>
-        <Input
-          type="text"
-          value={productName}
-          onChange={(e) => setProductName(e.target.value)}
-          placeholder="Digite o nome do produto"
-          required
-        />
-      </div>
-
-      {/* Quantidade + Preço */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Quantidade:
-          </label>
-          <Input
-            type="text"
-            value={productQuantity}
-            onChange={(e) => {const valorQuant = e.target.value.replace(/[^0-9]/g, "");
-              setProductQuantity(valorQuant)
-            }}
-              
-            min="1"
-            placeholder="Digite a quantidade"
-            required
-          />
+        {/* Quantidade + Preço */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Quantidade:
+            </label>
+            <Input
+              type="text"
+              value={productQuantity}
+              onChange={(e) => {
+                const valorQuant = e.target.value.replace(/[^0-9]/g, "");
+                setProductQuantity(valorQuant);
+              }}
+              min="1"
+              placeholder="Digite a quantidade"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Preço:
+            </label>
+            <Input
+              type="text"
+              value={productPrice}
+              onChange={(e) => {
+                const valorPreco = e.target.value.replace(/[^0-9.,]/g, "");
+                setProductPrice(valorPreco.replace(",", "."));
+              }}
+              step="0.01"
+              min="0.01"
+              placeholder="Digite o preço"
+              required
+            />
+          </div>
         </div>
-        <div>
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Preço:
-          </label>
-          <Input
-            type="text"
-            value={productPrice}
-            onChange={(e) => {const valorPreco = e.target.value.replace(/[^0-9.,]/g, ""); 
-              setProductPrice(valorPreco.replace(",", "."));
-            }}
-            step="0.01"
-            min="0.01"
-            placeholder="Digite o preço"
-            required
-          />
-        </div>
-      </div>
 
-      {/* Imagem + Produto Ativo */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Imagem do Produto:
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImageFile(e.target.files[0])}
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-green-100 file:text-green-700 hover:file:bg-green-200"
-          />
+        {/* Imagem + Produto Ativo */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Imagem do Produto:
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImageFile(e.target.files[0])}
+              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-green-100 file:text-green-700 hover:file:bg-green-200"
+            />
+          </div>
         </div>
-      </div>
 
-      {/* <div>
+        {/* <div>
         <label className="block text-gray-700 text-sm font-bold mb-2">
           Produto Ativo?
         </label>
@@ -176,12 +180,38 @@ export default function ProductForm() {
           checked={productActive}
         />
       </div> */}
-      <button
-        type="submit"
-        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-      >
-        Adicionar Produto
-      </button>
-    </form>
+        <button
+          type="submit"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Adicionar Produto
+        </button>
+      </form>
+      <div className="border border-gray-200 rounded-md p-4 h-fit w-full md:w-48">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Produto Ativo?
+        </label>
+
+        <div className="flex items-center mb-2">
+          <input
+            type="checkbox"
+            className="mr-2"
+            checked={productActive === true}
+            onChange={() => setProductActive(true)}
+          />
+          <label>Sim</label>
+        </div>
+
+        <div className="flex items-center">
+          <input
+            type="checkbox"
+            className="mr-2"
+            checked={productActive === false}
+            onChange={() => setProductActive(false)}
+          />
+          <label>Não</label>
+        </div>
+      </div>
+    </div>
   );
 }
