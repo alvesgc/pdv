@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import ProductForm from "../components/ProductForm";
+import PaymentTypeForm from "../components/Payment/PaymentForm";
 import ProductList from "../components/ProductList";
 import { PlusIcon, ListBulletIcon } from "@heroicons/react/24/outline";
 
@@ -34,7 +34,7 @@ export default function PaymentTypes() {
         </div>
 
         {/* Conteúdo conforme aba selecionada */}
-        {page === "cadastrar" && <ProductForm />}
+        {page === "cadastrar" && <PaymentTypeForm />}
         {page === "listar" && (
           <>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">

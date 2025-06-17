@@ -12,6 +12,7 @@ export default function ProductForm() {
   const [imageFile, setImageFile] = useState(null);
   const { addProduct } = useProducts();
   const [productActive, setProductActive] = useState(true);
+  const user = supabase.auth.user();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,6 +48,7 @@ export default function ProductForm() {
       price: parseFloat(productPrice),
       active: productActive,
       imageUrl: imageUrl,
+      clientId: user.id
     };
 
     try {

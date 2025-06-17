@@ -6,7 +6,7 @@ import Products from "./pages/Products";
 import Log from "./pages/Log";
 import Layout from "./components/Layout";
 // import Stock from "./pages/Stock";
-import PaymentTypes from "./pages/PaymenTypes";
+import PaymentTypes from "./pages/PaymentTypes";
 import "./index.css";
 import Register from "./auth/Register";
 import PrivateRoute from "./routes/PrivateRoute";

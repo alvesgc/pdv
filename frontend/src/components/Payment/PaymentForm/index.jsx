@@ -1,10 +1,74 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../../Input";
-import { useProducts } from "../../../context/ProductContext";
 import { supabase } from "../../../lib/supabase";
 
-export default function ProductForm() {
-  const [paymentType, setPaymentType] = useState("");
+export default function PaymentTypeForm() {
+  const [name, setName] = useState("");
+  const [code, setCode] = useState("");
+  const [description, setDescription] = useState("");
+  const [allowChange, setAllowChange] = useState(false);
+  const [active, setActive] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    async function fetchUser() {
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+      if (error) {
+        console.error("Erro ao pegar usuário:", error);
+      } else {
+        setUser(user);
+      }
+    }
+    fetchUser();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // if (!user) {
+    //   alert("Usuário não autenticado");
+    //   return;
+    // }
+
+    if (name.trim() === "" || code.trim() === "") {
+      alert("Por favor, preencha os campos obrigatórios.");
+      return;
+    }
+
+    setLoading(true);
+
+    const newPaymentType = {
+      name,
+      code: parseInt(code, 10),
+      description: description.trim() || null,
+      allowChange,
+      active,
+      clientId: user.id,
+    };
+
+    const { error } = await supabase
+      .from("PaymentType")
+      .insert([newPaymentType]);
+
+    setLoading(false);
+
+    if (error) {
+      alert(`Erro ao cadastrar tipo de pagamento: ${error.message}`);
+    } else {
+      alert("Tipo de pagamento cadastrado com sucesso!");
+      setName("");
+      setCode("");
+      setDescription("");
+      setAllowChange(false);
+      setActive(true);
+    }
+  };
+
+  // if (user === null) return <p>Carregando usuário...</p>;
 
   return (
     <div className="flex flex-col md:flex-row md:justify-between">
@@ -12,127 +76,83 @@ export default function ProductForm() {
         onSubmit={handleSubmit}
         className="mb-4 md:mb-8 p-4 border border-gray-200 rounded-md w-full md:mr-4 md:flex-grow"
       >
-        {/* Código do Produto + Código de Barras */}
+        {/* Código + Nome */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Código do Produto:
+              Código:
             </label>
             <Input
-              type="text"
-              value={productCode}
+              type="number"
+              value={code}
               onChange={(e) => {
-                const valorLimpo = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
-                setProductCode(valorLimpo);
+                const val = e.target.value.replace(/[^0-9]/g, "");
+                setCode(val);
               }}
-              placeholder="Digite o código do produto"
+              placeholder="Digite o código do tipo de pagamento"
               required
+              min="1"
             />
           </div>
           <div>
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Código de barras:
+              Nome:
             </label>
             <Input
               type="text"
-              value={barcode}
-              onChange={(e) => {
-                const valorNumerico = e.target.value.replace(/[^0-9]/g, "");
-                setBarcode(valorNumerico);
-              }}
-              placeholder="Digite o código de barras"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Digite o nome do tipo de pagamento"
+              required
             />
           </div>
         </div>
 
-        {/* Nome do Produto */}
+        {/* Descrição */}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Nome do Produto:
+            Descrição:
           </label>
-          <Input
-            type="text"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
-            placeholder="Digite o nome do produto"
-            required
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Descrição opcional"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-green-500"
+            rows={3}
           />
         </div>
 
-        {/* Produto Ativo */}
-        <div className="mb-6 flex items-center gap-2">
-          <input
-            id="productActive"
-            type="checkbox"
-            checked={productActive}
-            onChange={(e) => setProductActive(e.target.checked)}
-            className="w-5 h-5"
-          />
-          <label
-            htmlFor="productActive"
-            className="text-gray-700 text-sm font-semibold"
-          >
-            Produto Ativo
-          </label>
-        </div>
-
-        {/* Quantidade + Preço */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Quantidade:
-            </label>
-            <Input
-              type="text"
-              value={productQuantity}
-              onChange={(e) => {
-                const valorQuant = e.target.value.replace(/[^0-9]/g, "");
-                setProductQuantity(valorQuant);
-              }}
-              min="1"
-              placeholder="Digite a quantidade"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Preço:
-            </label>
-            <Input
-              type="text"
-              value={productPrice}
-              onChange={(e) => {
-                const valorPreco = e.target.value.replace(/[^0-9.,]/g, "");
-                setProductPrice(valorPreco.replace(",", "."));
-              }}
-              step="0.01"
-              min="0.01"
-              placeholder="Digite o preço"
-              required
-            />
-          </div>
-        </div>
-
-        {/* Imagem */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Imagem do Produto:
-            </label>
+        {/* Permitir alteração + Ativo */}
+        <div className="mb-6 flex items-center gap-6">
+          <label className="flex items-center gap-2 text-gray-700 text-sm font-semibold">
             <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => setImageFile(e.target.files[0])}
-              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-green-100 file:text-green-700 hover:file:bg-green-200"
+              type="checkbox"
+              checked={allowChange}
+              onChange={(e) => setAllowChange(e.target.checked)}
+              className="w-5 h-5"
             />
-          </div>
+            Permite alteração após uso
+          </label>
+
+          <label className="flex items-center gap-2 text-gray-700 text-sm font-semibold">
+            <input
+              type="checkbox"
+              checked={active}
+              onChange={(e) => setActive(e.target.checked)}
+              className="w-5 h-5"
+            />
+            Ativo
+          </label>
         </div>
 
         <button
           type="submit"
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          disabled={loading}
+          className={`bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+            loading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
-          Adicionar Produto
+          {loading ? "Salvando..." : "Cadastrar Tipo de Pagamento"}
         </button>
       </form>
     </div>
