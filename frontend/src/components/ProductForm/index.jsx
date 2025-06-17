@@ -118,6 +118,23 @@ export default function ProductForm() {
           />
         </div>
 
+        {/* Produto Ativo */}
+        <div className="mb-6 flex items-center gap-2">
+          <input
+            id="productActive"
+            type="checkbox"
+            checked={productActive}
+            onChange={(e) => setProductActive(e.target.checked)}
+            className="w-5 h-5"
+          />
+          <label
+            htmlFor="productActive"
+            className="text-gray-700 text-sm font-semibold"
+          >
+            Produto Ativo
+          </label>
+        </div>
+
         {/* Quantidade + Preço */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
@@ -155,7 +172,7 @@ export default function ProductForm() {
           </div>
         </div>
 
-        {/* Imagem + Produto Ativo */}
+        {/* Imagem */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -170,16 +187,6 @@ export default function ProductForm() {
           </div>
         </div>
 
-        {/* <div>
-        <label className="block text-gray-700 text-sm font-bold mb-2">
-          Produto Ativo?
-        </label>
-        <input
-          type="checkbox"
-          onChange={(e) => setProductActive(e.target.checked)}
-          checked={productActive}
-        />
-      </div> */}
         <button
           type="submit"
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -187,31 +194,6 @@ export default function ProductForm() {
           Adicionar Produto
         </button>
       </form>
-      <div className="border border-gray-200 rounded-md p-4 h-fit w-full md:w-48">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
-          Produto Ativo?
-        </label>
-
-        <div className="flex items-center mb-2">
-          <input
-            type="checkbox"
-            className="mr-2"
-            checked={productActive === true}
-            onChange={() => setProductActive(true)}
-          />
-          <label>Sim</label>
-        </div>
-
-        <div className="flex items-center">
-          <input
-            type="checkbox"
-            className="mr-2"
-            checked={productActive === false}
-            onChange={() => setProductActive(false)}
-          />
-          <label>Não</label>
-        </div>
-      </div>
     </div>
   );
 }
