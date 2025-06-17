@@ -6,6 +6,7 @@ import Products from "./pages/Products";
 import Log from "./pages/Log";
 import Layout from "./components/Layout";
 // import Stock from "./pages/Stock";
+import PaymentTypes from "./pages/PaymenTypes";
 import "./index.css";
 import Register from "./auth/Register";
 import PrivateRoute from "./routes/PrivateRoute";
@@ -30,6 +31,11 @@ export default function App() {
             <Route path="/log" element={
               <PrivateRoute>
                 <Log />
+              </PrivateRoute>
+            } />
+            <Route path="/settings/payment-types" element={
+              <PrivateRoute>
+                <PaymentTypes />
               </PrivateRoute>
             } />
             <Route path="/register" element={<Register />} />
