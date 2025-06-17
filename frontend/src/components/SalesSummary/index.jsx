@@ -51,7 +51,7 @@ export default function SalesSummary({ cart, onClearCart, selectedProduct }) {
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
           <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
-            <h2 className="text-xl font-bold mb-4">Confirmar Venda</h2>
+            <h2 className="text-xl font-bold mb-4">Finalizar venda</h2>
             <p>Tem certeza que deseja finalizar essa venda?</p>
             <div className="flex justify-end gap-2 mt-4">
               <button onClick={() => setShowModal(false)} className="px-4 py-2 bg-gray-300 rounded">Cancelar</button>
