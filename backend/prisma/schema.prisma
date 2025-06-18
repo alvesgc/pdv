@@ -52,5 +52,5 @@ model PaymentType {
   client    Client   @relation(fields: [clientId], references: [id])
   createdAt DateTime @default(now())
 
-  @@unique([clientId, code])
+  @@unique([clientId, code]) 
 }

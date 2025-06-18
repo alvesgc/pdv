@@ -12,11 +12,18 @@ ALTER TABLE "Product" ALTER COLUMN "code" SET NOT NULL;
 CREATE TABLE "PaymentType" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "code" INTEGER NOT NULL,
+    "description" TEXT,
+    "allowChange" BOOLEAN NOT NULL DEFAULT false,
+    "active" BOOLEAN NOT NULL DEFAULT true,
     "clientId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "PaymentType_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "PaymentType_clientId_code_key" ON "PaymentType"("clientId", "code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Product_code_key" ON "Product"("code");
