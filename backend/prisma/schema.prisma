@@ -38,4 +38,19 @@ model Client {
   createdAt DateTime  @default(now())
   products  Product[]
   users     User[]
+  paymentTypes  PaymentType[] 
+}
+
+model PaymentType {
+  id        String   @id @default(uuid())
+  name      String
+  code     Int
+  description String?
+  allowChange Boolean @default(false)
+  active    Boolean  @default(true)
+  clientId  String
+  client    Client   @relation(fields: [clientId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([clientId, code]) 
 }
