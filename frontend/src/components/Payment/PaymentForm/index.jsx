@@ -11,20 +11,20 @@ export default function PaymentTypeForm() {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    async function fetchUser() {
-      const {
-        data: { user },
-        error,
-      } = await supabase.auth.getUser();
-      if (error) {
-        console.error("Erro ao pegar usuário:", error);
-      } else {
-        setUser(user);
-      }
-    }
-    fetchUser();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchUser() {
+  //     const {
+  //       data: { user },
+  //       error,
+  //     } = await supabase.auth.getUser();
+  //     if (error) {
+  //       console.error("Erro ao pegar usuário:", error);
+  //     } else {
+  //       setUser(user);
+  //     }
+  //   }
+  //   fetchUser();
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +47,7 @@ export default function PaymentTypeForm() {
       description: description.trim() || null,
       allowChange,
       active,
-      clientId: user.id,
+      //clientId: user.id,
     };
 
     const { error } = await supabase
