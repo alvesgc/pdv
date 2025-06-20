@@ -3,7 +3,6 @@ const prisma = new PrismaClient();
 
 export const getProducts = async (req, res) => {
   try {
-    console.log("User info:", req.user);
     const clientId = req.user.clientId;
     if (!clientId) return res.status(400).json({ message: "ClientId ausente" });
 
