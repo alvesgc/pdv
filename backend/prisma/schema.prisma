@@ -24,12 +24,13 @@ model Product {
 }
 
 model User {
-  id       String @id @default(uuid())
-  email    String @unique
-  password String
+  id       String   @id @default(uuid())
+  email    String   @unique
+  authId   String   @unique  // UUID do Supabase Auth
   clientId String
-  client   Client @relation(fields: [clientId], references: [id])
+  client   Client   @relation(fields: [clientId], references: [id])
 }
+
 
 model Client {
   id        String    @id @default(uuid())
