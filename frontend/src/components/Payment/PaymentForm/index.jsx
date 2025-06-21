@@ -42,6 +42,7 @@ export default function PaymentTypeForm() {
     }
 
     setLoading(true);
+
     const newPaymentType = {
       name,
       code: parseInt(code, 10),

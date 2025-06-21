@@ -9,6 +9,21 @@ export default function ProductList() {
   const [error, setError] = useState(null);
   const [produtoSelecionado, setProdutoSelecionado] = useState(null);
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [nomeEditado, setNomeEditado] = useState("");
+  const [precoEditado, setPrecoEditado] = useState("");
+  const [barcodeEditado, setBarcodeEditado] = useState("");
+  const [quantidadeEditada, setQuantidadeEditada] = useState("");
+  const [ativoEditado, setAtivoEditado] = useState(true);
+
+  useEffect(() => {
+    if (produtoSelecionado) {
+      setNomeEditado(produtoSelecionado.name);
+      setPrecoEditado(produtoSelecionado.price);
+      setBarcodeEditado(produtoSelecionado.barcode);
+      setQuantidadeEditada(produtoSelecionado.quantity);
+      setAtivoEditado(produtoSelecionado.active);
+    }
+  }, [produtoSelecionado]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -98,16 +113,146 @@ export default function ProductList() {
         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
             <h2 className="text-xl font-bold mb-4">Editar Produto</h2>
-            <p><strong>ID:</strong> {produtoSelecionado.id}</p>
-            <p><strong>Nome:</strong> {produtoSelecionado.name}</p>
-            <p><strong>Preço:</strong> <FormatterPrice value={produtoSelecionado.price} /></p>
 
-            <button
-              className="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
-              onClick={() => setMostrarModal(false)}
-            >
-              Fechar
-            </button>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-1">
+                  Código do Produto:
+                </label>
+                <input
+                  type="text"
+                  value={produtoSelecionado.code}
+                  disabled
+                  className="w-full p-2 border border-gray-300 rounded bg-gray-100 text-gray-600"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-1">
+                  Nome:
+                </label>
+                <input
+                  type="text"
+                  value={nomeEditado}
+                  onChange={(e) => setNomeEditado(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-1">
+                  Código de Barras:
+                </label>
+                <input
+                  type="text"
+                  value={barcodeEditado}
+                  onChange={(e) =>
+                    setBarcodeEditado(e.target.value.replace(/[^0-9]/g, ""))
+                  }
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-1">
+                  Quantidade:
+                </label>
+                <input
+                  type="number"
+                  min={0}
+                  value={quantidadeEditada}
+                  onChange={(e) => setQuantidadeEditada(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-1">
+                  Preço:
+                </label>
+                <input
+                  type="text"
+                  value={precoEditado}
+                  onChange={(e) =>
+                    setPrecoEditado(
+                      e.target.value.replace(",", ".").replace(/[^0-9.]/g, "")
+                    )
+                  }
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-1">
+                  Produto Ativo?
+                </label>
+                <div className="flex gap-4 items-center">
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      checked={ativoEditado === true}
+                      onChange={() => setAtivoEditado(true)}
+                      className="mr-2"
+                    />
+                    Sim
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      checked={ativoEditado === false}
+                      onChange={() => setAtivoEditado(false)}
+                      className="mr-2"
+                    />
+                    Não
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded"
+                onClick={() => setMostrarModal(false)}
+              >
+                Cancelar
+              </button>
+              <button
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+                onClick={async () => {
+                  try {
+                    if (parseInt(quantidadeEditada) < 0) {
+                      alert("A quantidade não pode ser menor que zero.");
+                      return;
+                    }
+                    if (
+                      !nomeEditado.trim() ||
+                      !barcodeEditado.trim() ||
+                      quantidadeEditada === "" ||
+                      precoEditado === ""
+                    ) {
+                      alert("Por favor preencher todos os campos.");
+                      return;
+                    }
+
+                    await api.put(`/products/${produtoSelecionado.id}`, {
+                      name: nomeEditado,
+                      barcode: barcodeEditado,
+                      quantity: parseInt(quantidadeEditada),
+                      price: parseFloat(precoEditado),
+                      active: ativoEditado,
+                    });
+
+                    alert("Produto atualizado com sucesso!");
+                    setMostrarModal(false);
+                  } catch (err) {
+                    console.error("Erro ao atualizar o produto:", err);
+                    console.log("Resposta do erro:", err.response);
+                    alert("Erro ao atualizar o produto.");
+                  }
+                }}
+              >
+                Salvar
+              </button>
+            </div>
           </div>
         </div>
       )}
