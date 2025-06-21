@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../lib/api";
+import { supabase } from "../lib/supabase"; 
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login } = useAuth(); 
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
@@ -23,18 +23,39 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("/auth/login", form);
-      login(res.data.token);
+      // Login via Supabase Auth
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: form.email,
+        password: form.password,
+      });
+
+      if (error) {
+        setError(error.message);
+        return;
+      }
+
+      if (!data.session) {
+        setError("Erro ao criar sessão. Tente novamente.");
+        return;
+      }
+
+      // Salva o token/session no contexto global
+      login(data.session.access_token);
+
+      // Redireciona para home/dashboard
       navigate("/");
     } catch (err) {
-      setError(err.response?.data?.message || "Erro ao fazer login.");
+      setError("Erro inesperado. Tente novamente.");
+      console.error(err);
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">NeoPDV</h1>
+        <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">
+          NeoPDV
+        </h1>
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
           Entre com seu usuário
         </h2>
@@ -83,10 +104,15 @@ const Login = () => {
             Entrar
           </button>
         </form>
+
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
-            Não possui um usuário? Entre em contato com o responsável pelos usuários em sua empresa.{" "}
-            <a href="/register" className="text-black font-bold hover:underline">
+            Não possui um usuário? Entre em contato com o responsável pelos
+            usuários em sua empresa.{" "}
+            <a
+              href="/register"
+              className="text-black font-bold hover:underline"
+            >
               Saiba mais
             </a>
           </p>

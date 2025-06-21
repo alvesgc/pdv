@@ -48,7 +48,7 @@ export default function ProductForm() {
       price: parseFloat(productPrice),
       active: productActive,
       imageUrl: imageUrl,
-      clientId: user.id
+      clientId: user.id,
     };
 
     try {

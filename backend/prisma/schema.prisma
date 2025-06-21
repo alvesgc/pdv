@@ -15,10 +15,10 @@ model Product {
   active    Boolean  @default(true)
   createdAt DateTime @default(now())
   bar_code  String?
-  code      String    @unique
+  code      String   @unique
   imageUrl  String?
-  clientId  String?
-  client    Client?   @relation(fields: [clientId], references: [id])
+  clientId  String
+  client    Client   @relation(fields: [clientId], references: [id])
 
   @@index([clientId])
 }
@@ -31,26 +31,28 @@ model User {
   client   Client @relation(fields: [clientId], references: [id])
 }
 
+
 model Client {
-  id        String    @id @default(uuid())
-  email     String    @unique
-  name      String
-  createdAt DateTime  @default(now())
-  products  Product[]
-  users     User[]
-  paymentTypes  PaymentType[] 
+  id           String        @id @default(uuid())
+  email        String        @unique
+  name         String
+  createdAt    DateTime      @default(now())
+  products     Product[]
+  users        User[]
+  paymentTypes PaymentType[]
 }
 
 model PaymentType {
-  id        String   @id @default(uuid())
-  name      String
-  code     Int
+  id          String   @id @default(uuid())
+  name        String
+  code        Int
   description String?
-  allowChange Boolean @default(false)
-  active    Boolean  @default(true)
-  clientId  String
-  client    Client   @relation(fields: [clientId], references: [id])
-  createdAt DateTime @default(now())
+  allowChange Boolean  @default(false)
+  active      Boolean  @default(true)
+  clientId    String
+  client      Client   @relation(fields: [clientId], references: [id])
+  createdAt   DateTime @default(now())
 
-  @@unique([clientId, code]) 
+  @@unique([clientId, code])
+  @@index([clientId])
 }
