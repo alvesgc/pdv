@@ -10,6 +10,7 @@ export default function PaymentTypeForm() {
   const [active, setActive] = useState(true);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
+  const [loadingUser, setLoadingUser] = useState(true);
 
   useEffect(() => {
     async function fetchUser() {
@@ -21,6 +22,7 @@ export default function PaymentTypeForm() {
         console.error("Erro ao pegar usuário:", error);
       } else {
         setUser(user);
+        setLoadingUser(false);
       }
     }
     fetchUser();
@@ -29,10 +31,10 @@ export default function PaymentTypeForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // if (!user) {
-    //   alert("Usuário não autenticado");
-    //   return;
-    // }
+    if (!user) {
+      alert("Usuário não autenticado");
+      return;
+    }
 
     if (name.trim() === "" || code.trim() === "") {
       alert("Por favor, preencha os campos obrigatórios.");
@@ -40,7 +42,6 @@ export default function PaymentTypeForm() {
     }
 
     setLoading(true);
-
     const newPaymentType = {
       name,
       code: parseInt(code, 10),
@@ -68,7 +69,7 @@ export default function PaymentTypeForm() {
     }
   };
 
-  // if (user === null) return <p>Carregando usuário...</p>;
+  if (user === null) return <p>Carregando usuário...</p>;
 
   return (
     <div className="flex flex-col md:flex-row md:justify-between">
