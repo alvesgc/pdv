@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../lib/supabase"; // seu client Supabase configurado
+import { supabase } from "../lib/supabase"; 
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const { login } = useAuth(); // função que armazena token/session no contexto
+  const { login } = useAuth(); 
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");

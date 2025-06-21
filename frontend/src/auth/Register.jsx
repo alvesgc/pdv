@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
+import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -22,61 +23,47 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { name, email, password, confirmPassword } = form;
-
-    if (!name || !email || !password || !confirmPassword) {
+    if (!form.name || !form.email || !form.password || !form.confirmPassword) {
       setError("Preencha todos os campos.");
       return;
     }
 
-    if (password !== confirmPassword) {
+    if (form.password !== form.confirmPassword) {
       setError("As senhas não coincidem.");
       return;
     }
 
-    const { data: signUpData, error: signUpError } = await supabase.auth.signUp(
-      {
-        email,
-        password,
-        options: {
-          data: { name },
-        },
+    try {
+      // Criar usuário no Supabase
+      const { data: signUpData, error: signUpError } =
+        await supabase.auth.signUp({
+          email: form.email,
+          password: form.password,
+          options: { data: { name: form.name } },
+        });
+
+      if (signUpError) {
+        setError(signUpError.message);
+        return;
       }
-    );
 
-    if (signUpError) {
-      setError(signUpError.message);
-      return;
+      if (!signUpData?.user?.id) {
+        setError("Erro inesperado ao criar usuário.");
+        return;
+      }
+
+      // Enviar dados para backend
+      await axios.post("http://localhost:3001/api/register", {
+        name: form.name,
+        email: form.email,
+        supabaseUserId: signUpData.user.id,
+      });
+
+      setSuccess("Cadastro realizado com sucesso!");
+      setTimeout(() => navigate("/login"), 1500);
+    } catch (err) {
+      setError(err.response?.data?.message || "Erro ao concluir cadastro.");
     }
-
-    const authUserId = signUpData.user.id;
-
-    const { data: clientData, error: clientError } = await supabase
-      .from("Client")
-      .insert([{ email, name }])
-      .select()
-      .single();
-
-    if (clientError) {
-      setError("Erro ao salvar dados do cliente: " + clientError.message);
-      return;
-    }
-
-    const { error: userError } = await supabase.from("User").insert([
-      {
-        email,
-        clientId: clientData.id,
-        authId: authUserId,
-      },
-    ]);
-
-    if (userError) {
-      setError("Erro ao salvar dados do usuário: " + userError.message);
-      return;
-    }
-
-    setSuccess("Cadastro realizado com sucesso!");
-    setTimeout(() => navigate("/login"), 1500);
   };
 
   return (
