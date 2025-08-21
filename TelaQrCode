@@ -1,0 +1,41 @@
+import { useState } from "react";
+import "./App.css";
+
+function App() {
+
+
+  return (
+    <>
+      <div className="flex flex-col items-center h-screen bg-white">
+        <div className="flex justify-end items-center w-full h-[35vh] bg-[#2faed4]">
+          <img className="" src=""/>
+          <img
+            className="imgViva h-[30vh] mt-5 mr-30 mb-5"
+            src="https://vrdocs.hmas.com.br/images/Logo_Viva-Rio.png"
+            alt="Logo Viva-Rio"
+          />
+          <img
+            className="w-[30%] mr-12"
+            src="https://vrdocs.hmas.com.br/images/AlbertSchweitzer_Branco.png"
+            alt="VR Vest Image"
+          />
+        </div>
+
+        <div className="flex flex-col items-center justify-center mt-30 border-2 border-[#2faed4] rounded-[15px] p-12">
+          <label htmlFor="qrCode" className="text-2x1 font-large ">
+            QR Code:
+          </label>
+          <input
+            type="text"
+            id="qrCodeNum"
+            placeholder="Escaneie o QR Code"
+            maxLength={11}  
+            className="mt-4 p-3 border-2 border-[#2faed4] rounded-[25px] w-[300px] text-lg"
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default App;
