@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login VR Vest</title>
+    <link rel="stylesheet" href="styleLogin.css">
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="left-section">
+        <div class="header">
+        <div class="text-content">
+            <img class="VRVestLogo" src="Colete VR Transp.png">
+            <h1 class="main-heading">Sistema de Gestão de Vestes</h1>
+            <p class="subheading">VERSÃO DE LANÇAMENTO</p>
+        </div>
+          <img
+            src="https://vrdocs.hmas.com.br/images/Logo_Viva-Rio.png"
+            alt="VR SAME Óbitos"
+            class="logo-viva"
+          />
+          <span class="title"></span>
+        </div>
+
+        <div class="footer">
+          <!-- Rodapé esquerdo vazio por enquanto -->
+        </div>
+      </div>
+
+      <div class="right-section">
+        <div class="hospital-logo">
+          <img
+            src="https://vrdocs.hmas.com.br/images/AlbertSchweitzer_Branco.png"
+            alt="Hospital Municipal Albert Schweitzer"
+            class="h-24"
+          />
+          <form
+            method="post"
+            :action="route('login')"
+            :reset-on-success="['password']"
+            v-slot="{ errors, processing }"
+            class="login-form"
+          >
+            <div class="form-group">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  required
+                  autofocus
+                  :tabindex="1"
+                  autocomplete="email"
+                  placeholder="email@example.com"
+                />
+                <!-- <InputError :message="errors.email" />
+                <label>{{ errors.email }}</label> -->
+              </div>
+
+              <div class="form-group">
+                <div class="label-row">
+                  <label for="password">Senha</label>
+                  <TextLink
+                    v-if="canResetPassword"
+                    :href="route('password.request')"
+                    class="text-sm"
+                    :tabindex="5"
+                  >
+                    Forgot password?
+                  </TextLink>
+                </div>
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  required
+                  :tabindex="2"
+                  autocomplete="current-password"
+                  placeholder="Password"
+                />
+                <InputError :message="errors.password" />
+              </div>
+
+              <!-- <div class="checkbox-label">
+                <label for="remember" class="checkbox-label">
+                  <Checkbox id="remember" name="remember" :tabindex="3" />
+                  <span>Lembre de mim</span>
+                </label>
+              </div> -->
+
+              <button
+                type="submit"
+                class="submit-button"
+                :tabindex="4"
+                :disabled="processing"
+              >
+                <LoaderCircle v-if="processing" class="loader-icon" />
+                Log in
+              </button>
+            </div>
+          </form>
+        </div>
+        </slot>
+      </div>
+    </div>
+  </body>
+</html>
